@@ -6,9 +6,10 @@
   let searchForm = document.getElementById("searchForm");
   let demoJSON = document.getElementById("demo");
 
+/* 52239bd8d8181afc3dbbf1d6570e51be */
   let baseURL = "https://api.flickr.com/services/rest/? \
                 method=flickr.photos.search& \
-                api_key=YOUR-API-KEY-HERE& \
+                api_key=YOUR_API_KEY& \
                 format=json& \
                 per_page=20& \
                 nojsoncallback=1& \
