@@ -7,7 +7,7 @@
   let demoJSON = document.getElementById("demo");
 
   // get an api key from http://open-platform.theguardian.com/access/
-  let baseURL = "https://content.guardianapis.com/search?api-key=YOUR-API-KEY-HERE&q=";
+  let baseURL = "https://content.guardianapis.com/search?api-key=YOUR-API-KEY&q=";
 
   searchForm.addEventListener("submit", function(ev){
     let url = baseURL + queryBox.value;
