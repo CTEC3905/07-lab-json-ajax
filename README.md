@@ -2,10 +2,12 @@
 
 Get an API key from Flickr at the documentation link below.
 
-[Documentation](https://www.flickr.com/services/api/)  
-[Photo Source URLs](https://www.flickr.com/services/api/misc.urls.html)
+- [Documentation](https://www.flickr.com/services/api/)
+- [Photo Source URLs](https://www.flickr.com/services/api/misc.urls.html)
 
-Thos example code uses JavaScript "fetch", which is more up-to-date than the Ajax requests made in the Wikipedia examples, and which you'll see in older code on the web. Read more on [JS Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+This example uses a JavaScript `promise`. A `promise` does something, `.then` does something else afterwards, but only when the "promise" is fulfilled
+
+It also uses `fetch`, which is more up-to-date than the Ajax requests made in the Wikipedia example. You'll also see Ajax requests in older code on the web. Read more on [JS Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
 
 ## Images size suffixes
