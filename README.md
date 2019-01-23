@@ -1,4 +1,4 @@
-# Javascript JSON API example: Guardian new
+# Javascript JSON API example: Guardian news
 
 IMPORTANT: For this code to work you will have to apply for a [Guardian API key](http://open-platform.theguardian.com/access/) and add it to the code (scripts.js line 11), replacing the bit that says `<YOUR-API-KEY>`. Be sure to keep the "&q=" at the end!
 
