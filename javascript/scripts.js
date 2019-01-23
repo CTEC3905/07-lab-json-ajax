@@ -6,7 +6,11 @@
   let searchForm = document.getElementById("searchForm");
   let demoJSON = document.getElementById("demo");
 
-/* 52239bd8d8181afc3dbbf1d6570e51be */
+/*
+  IMPORTANT! Apply for your API key here:
+    https://www.flickr.com/services/api/misc.api_keys.html
+  Add your API key on line 16
+*/
   let baseURL = "https://api.flickr.com/services/rest/? \
                 method=flickr.photos.search& \
                 api_key=YOUR_API_KEY& \

@@ -1,14 +1,16 @@
-# Lab 08: Javascript JSON API example
+# Javascript JSON API example: Flickr
 
 Get an API key from Flickr at the documentation link below.
 
 [Documentation](https://www.flickr.com/services/api/)  
 [Photo Source URLs](https://www.flickr.com/services/api/misc.urls.html)
 
-Thos example code uses JavaScript "fetch", which is slightly different to the Ajax requests we have made in the other examples. Read more on [JS Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+Thos example code uses JavaScript "fetch", which is more up-to-date than the Ajax requests made in the Wikipedia examples, and which you'll see in older code on the web. Read more on [JS Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
 
 ## Images size suffixes
+
+See the end of line 35 and replace the "q" in "_q.jpg" with one of the following:
 
 - s	small square 75x75  
 - q	large square 150x150  
