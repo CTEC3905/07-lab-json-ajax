@@ -27,3 +27,12 @@ li .txt {
 li:nth-child(even) {
   background: #eee;
 }
+
+details {
+  max-width: 100%;
+  overflow: auto;
+}
+
+details a {
+  margin: 0.1em;
+}

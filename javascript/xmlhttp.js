@@ -27,7 +27,7 @@
                 lllimit=max& \
                 piprop=thumbnail|name& \
                 origin=*& \
-                gsrsearch=";
+                gsrsearch=".replace(/\s/g, "");
 
 /*
 API Sandbox url
@@ -37,57 +37,66 @@ Request url
 https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&prop=extracts%7Clanglinks%7Cpageimages&gsrlimit=10&gsrnamespace=0&exintro&explaintext&exsentences=1&exlimit=max&llprop=url&lllimit=max&piprop=thumbnail|name&origin=*&gsrsearch=kittens
 */
 
-  function gatherData(data) {
-    // console.log(data);
-    // initialise some variables
-    let theData = "";
-    let langLinks = "";
-    let img = "<img>";
-    const languages = ["en", "de", "zh", "fr", "es", "ja", "ar", "ko", "el"];
-    let k;
-    let key;
-    // loop through the result pages by pageid
-    for(key in data.query.pages) {
-      let tmp = data.query.pages[key];
-      if (tmp.thumbnail) {
-        img = `<img src="${tmp.thumbnail.source}" alt="${tmp.title}"> `;
-      }
-      let title = `<strong><a href="${tmp.fullurl}">${tmp.title}</a></strong>`;
-      let extract = `<span class="txt">${tmp.extract}</span>`;
-      langLinks = "";
-      for (k in tmp.langlinks) {
-        if (languages.includes(tmp.langlinks[k].lang)) {
-          langLinks += `<a href=${tmp.langlinks[k].url}>${tmp.langlinks[k].lang}</a> `;
-        }
-      }
-      theData += `<li>${img} ${title} ${extract} <span class="langs">${langLinks}</span></li>`;
+
+  const fetchButton = document.getElementById("fetch-button");
+  const fetchResult = document.getElementById("fetch-result");
+
+  fetchButton.addEventListener("click", ev => {
+    fetch(`${baseURL}${queryBox.value || 'kittens'}`).then(response => {
+      return response.json();
+    }).then(data => {
+      for(let key in data.query.pages) {
+        let result = document.createElement('li');
+        let record = data.query.pages[key];
+        result.appendChild(thumbnail(record));
+        result.appendChild(title(record));
+        result.appendChild(extract(record));
+        result.appendChild(languages(record));
+        fetchResult.appendChild(result);
+      };
+    })
+  });
+
+  let thumbnail = data => {
+    let img = document.createElement('img');
+    if(data.thumbnail) {
+      img.src = data.thumbnail.source;
+      img.alt = data.title;
     }
-    demoJSON.innerHTML = theData;
+    return img;
   }
 
-  // the API call is triggered once the user submits a query
-  searchForm.addEventListener("submit", function(ev){
-    // complete the request url
-    let wiki = baseURL + queryBox.value;
-    // open a connection to the requested API url
-    xhr.open("GET", wiki, true);
-    // be polite to Wikipedia
-    xhr.setRequestHeader('Api-User-Agent', 'Example/1.0');
-    // send off that request
-    xhr.send();
-    // if the response was ok, handle the response data using the gatherData function
-    xhr.onreadystatechange = function() {
-      // console.log(`Current readyState: ${xhr.readyState}`);
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        // parse the response JSON
-        let response = JSON.parse(xhr.responseText);
-        // deal with the parsed JSON data
-        gatherData(response);
-      }
-    };
-    // clear the search box
-    queryBox.value = "";
-    ev.preventDefault();
-  }, false);
+  let title = data => {
+    let strong = document.createElement('strong');
+    let a = document.createElement('a');
+    a.href = data.fullurl;
+    a.textContent = data.title;
+    strong.appendChild(a);
+    return strong;
+  }
+
+  let extract = data => {
+    let extract = document.createElement('span');
+    extract.classList.add('txt');
+    extract.textContent = data.extract;
+    return extract;
+  }
+
+  let languages = data => {
+    if(!data.langlinks) { return document.createElement('span'); }
+    let details = document.createElement('details');
+    details.classList.add('langs');
+    let summary = document.createElement('summary');
+    summary.textContent = `${data.langlinks.length} language${data.langlinks.length > 1 ? 's': ''}`;
+    details.appendChild(summary)
+    for (let lang in data.langlinks) {
+      let myLanguage = data.langlinks[lang];
+      let l = document.createElement('a');
+      l.href = myLanguage.url;
+      l.textContent = myLanguage.lang
+      details.appendChild(l);
+    }
+    return details;
+  }
 
 }());
